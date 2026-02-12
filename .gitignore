@@ -1,3 +1,7 @@
+# =========================
+# React Frontend
+# =========================
+
 # Logs
 logs
 *.log
@@ -123,3 +127,34 @@ dist
 .vscode
 *.swp
 *.swo
+
+
+
+
+# =========================
+# Python / FastAPI Backend
+# =========================
+
+# Python bytecode (compiled files)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments (where you installed pip packages)
+venv/
+env/
+.venv/
+backend/venv/
+
+# SQLite Database (CRITICAL: Do not commit your database!)
+*.db
+*.sqlite3
+backend/skillnuron.db
+
+# Pytest cache (if we add tests later)
+.pytest_cache/
+
+# Distribution / Packaging
+build/
+dist/
+*.egg-info/
