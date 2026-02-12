@@ -1,14 +1,13 @@
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 from .database import SessionLocal
 from . import models, security
 
-# Note: We use a custom URL but OAuth2PasswordBearer expects a standard form.
-# We will manually handle the login endpoint to accept JSON body instead of Form data
-# to match the React Frontend JSON submission.
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/v1/auth/login")
+# CHANGE: Use HTTPBearer instead of OAuth2PasswordBearer
+# This allows you to just paste the token in Swagger UI
+security_scheme = HTTPBearer()
 
 def get_db():
     db = SessionLocal()
@@ -17,12 +16,15 @@ def get_db():
     finally:
         db.close()
 
-def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+def get_current_user(token_auth: HTTPAuthorizationCredentials = Depends(security_scheme), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    # Extract the token string from the security object
+    token = token_auth.credentials
+    
     try:
         payload = jwt.decode(token, security.SECRET_KEY, algorithms=[security.ALGORITHM])
         email: str = payload.get("sub")

@@ -43,6 +43,18 @@ class SkillResponse(SkillBase):
         from_attributes = True
 
 # --- Job Schemas ---
+
+# NEW: Add this class to allow creating jobs
+class JobCreate(BaseModel):
+    title: str
+    company: str
+    location: str
+    type: str
+    salary_range: str
+    required_skills: str  # Comma separated, e.g. "Python,Django"
+    description: str
+    posted_date: str
+
 class JobResponse(BaseModel):
     id: int
     title: str
