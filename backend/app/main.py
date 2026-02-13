@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base
-from .routers import auth, skills, jobs
+from .routers import auth, skills, jobs, resume
 from . import models
+
 
 # Create Tables
 Base.metadata.create_all(bind=engine)
@@ -63,3 +64,9 @@ app.include_router(jobs.router, prefix="/api/v1")
 @app.get("/")
 def read_root():
     return {"message": "Welcome to SkillNuron AI API"}
+
+# Include Routers
+app.include_router(auth.router, prefix="/api/v1")
+app.include_router(skills.router, prefix="/api/v1")
+app.include_router(jobs.router, prefix="/api/v1")
+app.include_router(resume.router, prefix="/api/v1") # Register new router

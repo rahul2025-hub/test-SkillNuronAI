@@ -7,105 +7,107 @@ export function ResumeAnalyzer() {
   const [isAnalyzed, setIsAnalyzed] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Mock analysis data
-  const overallScore = 78;
-  const analysisData = {
-    atsCompatibility: 85,
-    contentQuality: 75,
-    formatting: 80,
-    keywordOptimization: 70,
-    impactScore: 76,
-  };
+  const [analysisResult, setAnalysisResult] = useState<any>(null);
 
-  const strengths = [
-    {
-      title: 'Strong Technical Skills Section',
-      description: 'Well-organized skills with relevant technologies for your target role.',
-      icon: CheckCircle,
-      color: 'text-green-600',
-      bgColor: 'bg-green-100',
-    },
-    {
-      title: 'Quantified Achievements',
-      description: 'Good use of metrics and numbers to demonstrate impact.',
-      icon: Award,
-      color: 'text-green-600',
-      bgColor: 'bg-green-100',
-    },
-    {
-      title: 'ATS-Friendly Format',
-      description: 'Resume structure is compatible with Applicant Tracking Systems.',
-      icon: FileCheck,
-      color: 'text-green-600',
-      bgColor: 'bg-green-100',
-    },
-  ];
+  // // Mock analysis data
+  // const overallScore = 78;
+  // const analysisData = {
+  //   atsCompatibility: 85,
+  //   contentQuality: 75,
+  //   formatting: 80,
+  //   keywordOptimization: 70,
+  //   impactScore: 76,
+  // };
 
-  const improvements = [
-    {
-      title: 'Missing Keywords',
-      description: 'Add more industry-specific keywords like "CI/CD", "Docker", "Kubernetes" to improve ATS match.',
-      severity: 'medium',
-      icon: Target,
-      color: 'text-orange-600',
-      bgColor: 'bg-orange-100',
-    },
-    {
-      title: 'Professional Summary Too Generic',
-      description: 'Make your summary more specific to your target role and unique value proposition.',
-      severity: 'medium',
-      icon: AlertCircle,
-      color: 'text-orange-600',
-      bgColor: 'bg-orange-100',
-    },
-    {
-      title: 'Limited Action Verbs',
-      description: 'Use stronger action verbs like "spearheaded", "orchestrated", "engineered" instead of repetitive words.',
-      severity: 'low',
-      icon: Zap,
-      color: 'text-yellow-600',
-      bgColor: 'bg-yellow-100',
-    },
-  ];
+  // const strengths = [
+  //   {
+  //     title: 'Strong Technical Skills Section',
+  //     description: 'Well-organized skills with relevant technologies for your target role.',
+  //     icon: CheckCircle,
+  //     color: 'text-green-600',
+  //     bgColor: 'bg-green-100',
+  //   },
+  //   {
+  //     title: 'Quantified Achievements',
+  //     description: 'Good use of metrics and numbers to demonstrate impact.',
+  //     icon: Award,
+  //     color: 'text-green-600',
+  //     bgColor: 'bg-green-100',
+  //   },
+  //   {
+  //     title: 'ATS-Friendly Format',
+  //     description: 'Resume structure is compatible with Applicant Tracking Systems.',
+  //     icon: FileCheck,
+  //     color: 'text-green-600',
+  //     bgColor: 'bg-green-100',
+  //   },
+  // ];
 
-  const sectionAnalysis = [
-    {
-      section: 'Contact Information',
-      score: 100,
-      status: 'excellent',
-      feedback: 'All essential contact details are present and properly formatted.',
-    },
-    {
-      section: 'Professional Summary',
-      score: 70,
-      status: 'good',
-      feedback: 'Summary is present but could be more tailored and impactful.',
-    },
-    {
-      section: 'Work Experience',
-      score: 80,
-      status: 'good',
-      feedback: 'Good descriptions with quantifiable results. Consider adding more recent achievements.',
-    },
-    {
-      section: 'Skills',
-      score: 85,
-      status: 'excellent',
-      feedback: 'Well-categorized with relevant technical and soft skills.',
-    },
-    {
-      section: 'Education',
-      score: 90,
-      status: 'excellent',
-      feedback: 'Clear and concise. Includes relevant certifications.',
-    },
-  ];
+  // const improvements = [
+  //   {
+  //     title: 'Missing Keywords',
+  //     description: 'Add more industry-specific keywords like "CI/CD", "Docker", "Kubernetes" to improve ATS match.',
+  //     severity: 'medium',
+  //     icon: Target,
+  //     color: 'text-orange-600',
+  //     bgColor: 'bg-orange-100',
+  //   },
+  //   {
+  //     title: 'Professional Summary Too Generic',
+  //     description: 'Make your summary more specific to your target role and unique value proposition.',
+  //     severity: 'medium',
+  //     icon: AlertCircle,
+  //     color: 'text-orange-600',
+  //     bgColor: 'bg-orange-100',
+  //   },
+  //   {
+  //     title: 'Limited Action Verbs',
+  //     description: 'Use stronger action verbs like "spearheaded", "orchestrated", "engineered" instead of repetitive words.',
+  //     severity: 'low',
+  //     icon: Zap,
+  //     color: 'text-yellow-600',
+  //     bgColor: 'bg-yellow-100',
+  //   },
+  // ];
 
-  const keywords = {
-    present: ['JavaScript', 'React', 'Python', 'Machine Learning', 'Agile', 'Leadership', 'Problem Solving'],
-    missing: ['Docker', 'Kubernetes', 'CI/CD', 'Microservices', 'Cloud Architecture'],
-    recommended: ['AWS', 'Azure', 'DevOps', 'Test Automation', 'System Design'],
-  };
+  // const sectionAnalysis = [
+  //   {
+  //     section: 'Contact Information',
+  //     score: 100,
+  //     status: 'excellent',
+  //     feedback: 'All essential contact details are present and properly formatted.',
+  //   },
+  //   {
+  //     section: 'Professional Summary',
+  //     score: 70,
+  //     status: 'good',
+  //     feedback: 'Summary is present but could be more tailored and impactful.',
+  //   },
+  //   {
+  //     section: 'Work Experience',
+  //     score: 80,
+  //     status: 'good',
+  //     feedback: 'Good descriptions with quantifiable results. Consider adding more recent achievements.',
+  //   },
+  //   {
+  //     section: 'Skills',
+  //     score: 85,
+  //     status: 'excellent',
+  //     feedback: 'Well-categorized with relevant technical and soft skills.',
+  //   },
+  //   {
+  //     section: 'Education',
+  //     score: 90,
+  //     status: 'excellent',
+  //     feedback: 'Clear and concise. Includes relevant certifications.',
+  //   },
+  // ];
+
+  // const keywords = {
+  //   present: ['JavaScript', 'React', 'Python', 'Machine Learning', 'Agile', 'Leadership', 'Problem Solving'],
+  //   missing: ['Docker', 'Kubernetes', 'CI/CD', 'Microservices', 'Cloud Architecture'],
+  //   recommended: ['AWS', 'Azure', 'DevOps', 'Test Automation', 'System Design'],
+  // };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -133,14 +135,27 @@ export function ResumeAnalyzer() {
 
   const processResume = async (file: File) => {
     setIsProcessing(true);
-    setIsAnalyzed(false);
+    
+    const formData = new FormData();
+    formData.append("file", file);
 
-    // Simulate AI processing and analysis
-    await new Promise(resolve => setTimeout(resolve, 3000));
-
-    setIsProcessing(false);
-    setIsAnalyzed(true);
-  };
+    try {
+        const response = await fetch("http://localhost:8000/api/v1/resume/analyze", {
+            method: "POST",
+            body: formData,
+        });
+        
+        const data = await response.json();
+        
+        // Map backend "type" to your frontend icons/colors here
+        // setAnalysisData(data); 
+    } catch (error) {
+        console.error("Analysis failed", error);
+    } finally {
+        setIsProcessing(false);
+        setIsAnalyzed(true);
+    }
+};
 
   const handleRemoveFile = () => {
     setUploadedFile(null);
@@ -301,7 +316,7 @@ export function ResumeAnalyzer() {
       )}
 
       {/* Analysis Results */}
-      {isAnalyzed && uploadedFile && (
+      {isAnalyzed && uploadedFile && analysisResult && (
         <>
           {/* Uploaded File Info */}
           <div className="bg-white rounded-xl shadow-sm p-6">
@@ -333,7 +348,8 @@ export function ResumeAnalyzer() {
               <div className="text-center md:text-left">
                 <h3 className="text-xl mb-2 opacity-90">Overall Resume Score</h3>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-6xl">{overallScore}</span>
+                  {/* UPDATE: Uses analysisResult.overallScore */}
+                  <span className="text-6xl">{analysisResult.overallScore}</span>
                   <span className="text-2xl opacity-75">/100</span>
                 </div>
                 <p className="mt-2 opacity-90">Your resume is performing well with room for improvement</p>
@@ -356,7 +372,7 @@ export function ResumeAnalyzer() {
                     strokeWidth="8"
                     fill="none"
                     strokeDasharray={`${2 * Math.PI * 56}`}
-                    strokeDashoffset={`${2 * Math.PI * 56 * (1 - overallScore / 100)}`}
+                    strokeDashoffset={`${2 * Math.PI * 56 * (1 - analysisResult.overallScore / 100)}`}
                     strokeLinecap="round"
                   />
                 </svg>
@@ -371,80 +387,28 @@ export function ResumeAnalyzer() {
           <div className="bg-white rounded-xl shadow-sm p-6">
             <h3 className="text-lg text-gray-900 mb-6">Score Breakdown</h3>
             <div className="space-y-4">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-700">ATS Compatibility</span>
-                  <span className={`${getScoreColor(analysisData.atsCompatibility)}`}>
-                    {analysisData.atsCompatibility}%
-                  </span>
+              {[
+                { label: 'ATS Compatibility', val: analysisResult.atsCompatibility },
+                { label: 'Content Quality', val: analysisResult.contentQuality },
+                { label: 'Formatting', val: analysisResult.formatting },
+                { label: 'Keyword Optimization', val: analysisResult.keywordOptimization },
+                { label: 'Impact Score', val: analysisResult.impactScore },
+              ].map((item, i) => (
+                <div key={i}>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-gray-700">{item.label}</span>
+                    <span className={`${getScoreColor(item.val)}`}>
+                      {item.val}%
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div
+                      className={`${getScoreBgColor(item.val)} h-2 rounded-full transition-all`}
+                      style={{ width: `${item.val}%` }}
+                    ></div>
+                  </div>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    className={`${getScoreBgColor(analysisData.atsCompatibility)} h-2 rounded-full transition-all`}
-                    style={{ width: `${analysisData.atsCompatibility}%` }}
-                  ></div>
-                </div>
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-700">Content Quality</span>
-                  <span className={`${getScoreColor(analysisData.contentQuality)}`}>
-                    {analysisData.contentQuality}%
-                  </span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    className={`${getScoreBgColor(analysisData.contentQuality)} h-2 rounded-full transition-all`}
-                    style={{ width: `${analysisData.contentQuality}%` }}
-                  ></div>
-                </div>
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-700">Formatting</span>
-                  <span className={`${getScoreColor(analysisData.formatting)}`}>
-                    {analysisData.formatting}%
-                  </span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    className={`${getScoreBgColor(analysisData.formatting)} h-2 rounded-full transition-all`}
-                    style={{ width: `${analysisData.formatting}%` }}
-                  ></div>
-                </div>
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-700">Keyword Optimization</span>
-                  <span className={`${getScoreColor(analysisData.keywordOptimization)}`}>
-                    {analysisData.keywordOptimization}%
-                  </span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    className={`${getScoreBgColor(analysisData.keywordOptimization)} h-2 rounded-full transition-all`}
-                    style={{ width: `${analysisData.keywordOptimization}%` }}
-                  ></div>
-                </div>
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-700">Impact Score</span>
-                  <span className={`${getScoreColor(analysisData.impactScore)}`}>
-                    {analysisData.impactScore}%
-                  </span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div
-                    className={`${getScoreBgColor(analysisData.impactScore)} h-2 rounded-full transition-all`}
-                    style={{ width: `${analysisData.impactScore}%` }}
-                  ></div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
@@ -457,10 +421,11 @@ export function ResumeAnalyzer() {
                 <h3 className="text-lg text-gray-900">Strengths</h3>
               </div>
               <div className="space-y-4">
-                {strengths.map((strength, index) => (
+                {/* UPDATE: Maps analysisResult.strengths */}
+                {analysisResult.strengths.map((strength: any, index: number) => (
                   <div key={index} className="flex gap-3">
-                    <div className={`w-10 h-10 ${strength.bgColor} rounded-lg flex items-center justify-center flex-shrink-0`}>
-                      <strength.icon className={`w-5 h-5 ${strength.color}`} />
+                    <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <CheckCircle className="w-5 h-5 text-green-600" />
                     </div>
                     <div>
                       <h4 className="text-gray-900 mb-1">{strength.title}</h4>
@@ -478,19 +443,26 @@ export function ResumeAnalyzer() {
                 <h3 className="text-lg text-gray-900">Areas for Improvement</h3>
               </div>
               <div className="space-y-4">
-                {improvements.map((improvement, index) => (
+                 {/* UPDATE: Maps analysisResult.improvements */}
+                {analysisResult.improvements.map((improvement: any, index: number) => (
                   <div key={index} className="flex gap-3">
-                    <div className={`w-10 h-10 ${improvement.bgColor} rounded-lg flex items-center justify-center flex-shrink-0`}>
-                      <improvement.icon className={`w-5 h-5 ${improvement.color}`} />
+                    <div className={`w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
+                      improvement.severity === 'high' ? 'bg-red-100' : 'bg-orange-100'
+                    }`}>
+                      {improvement.severity === 'high' ? 
+                        <AlertCircle className="w-5 h-5 text-red-600" /> : 
+                        <Target className="w-5 h-5 text-orange-600" />
+                      }
                     </div>
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <h4 className="text-gray-900">{improvement.title}</h4>
-                        <span className={`text-xs px-2 py-0.5 rounded-full ${improvement.severity === 'high' ? 'bg-red-100 text-red-700' :
-                            improvement.severity === 'medium' ? 'bg-orange-100 text-orange-700' :
-                              'bg-yellow-100 text-yellow-700'
-                          }`}>
-                          {improvement.severity}
+                        <span className={`text-xs px-2 py-0.5 rounded-full ${
+                          improvement.severity === 'high' ? 'bg-red-100 text-red-700' :
+                          improvement.severity === 'medium' ? 'bg-orange-100 text-orange-700' :
+                          'bg-yellow-100 text-yellow-700'
+                        }`}>
+                          {improvement.severity || 'low'}
                         </span>
                       </div>
                       <p className="text-sm text-gray-600">{improvement.description}</p>
@@ -505,7 +477,8 @@ export function ResumeAnalyzer() {
           <div className="bg-white rounded-xl shadow-sm p-6">
             <h3 className="text-lg text-gray-900 mb-6">Section-by-Section Analysis</h3>
             <div className="space-y-4">
-              {sectionAnalysis.map((section, index) => (
+              {/* UPDATE: Maps analysisResult.sections */}
+              {analysisResult.sections.map((section: any, index: number) => (
                 <div key={index} className="border border-gray-200 rounded-lg p-4">
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
@@ -541,11 +514,9 @@ export function ResumeAnalyzer() {
                   <h4 className="text-gray-900">Keywords Present</h4>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {keywords.present.map((keyword, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm"
-                    >
+                   {/* UPDATE: Maps analysisResult.keywords.present */}
+                  {analysisResult.keywords.present.map((keyword: string, index: number) => (
+                    <span key={index} className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">
                       {keyword}
                     </span>
                   ))}
@@ -558,11 +529,9 @@ export function ResumeAnalyzer() {
                   <h4 className="text-gray-900">Missing High-Value Keywords</h4>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {keywords.missing.map((keyword, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm"
-                    >
+                   {/* UPDATE: Maps analysisResult.keywords.missing */}
+                  {analysisResult.keywords.missing.map((keyword: string, index: number) => (
+                    <span key={index} className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm">
                       {keyword}
                     </span>
                   ))}
@@ -575,11 +544,9 @@ export function ResumeAnalyzer() {
                   <h4 className="text-gray-900">Recommended Keywords</h4>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {keywords.recommended.map((keyword, index) => (
-                    <span
-                      key={index}
-                      className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm"
-                    >
+                   {/* UPDATE: Maps analysisResult.keywords.recommended */}
+                  {analysisResult.keywords.recommended.map((keyword: string, index: number) => (
+                    <span key={index} className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
                       {keyword}
                     </span>
                   ))}

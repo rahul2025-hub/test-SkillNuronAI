@@ -69,3 +69,35 @@ class JobResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+
+# --- Resume Analysis Schemas ---
+class ResumeSection(BaseModel):
+    section: str
+    score: int
+    status: str
+    feedback: str
+
+class ResumeFeedbackItem(BaseModel):
+    title: str
+    description: str
+    type: str  # "strength" or "improvement"
+    severity: Optional[str] = "low" # only for improvements
+
+class ResumeKeywords(BaseModel):
+    present: List[str]
+    missing: List[str]
+    recommended: List[str]
+
+class ResumeAnalysisResponse(BaseModel):
+    overallScore: int
+    atsCompatibility: int
+    contentQuality: int
+    formatting: int
+    keywordOptimization: int
+    impactScore: int
+    sections: List[ResumeSection]
+    strengths: List[ResumeFeedbackItem]
+    improvements: List[ResumeFeedbackItem]
+    keywords: ResumeKeywords
